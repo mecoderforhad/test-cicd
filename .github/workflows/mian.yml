@@ -1,4 +1,4 @@
-name: React Deployment Pipeline
+name: Deploy to Windows Server
 
 on:
   push:
@@ -6,33 +6,23 @@ on:
       - main
 
 jobs:
-  build:
-    runs-on: windows-latest
-    
+  deploy:
+    runs-on: ubuntu-latest
+
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v2
+    - name: Deploy via SSH
+      uses: appleboy/ssh-action@v0.1.5
       with:
-        node-version: '20'
-
-    - name: Install dependencies
-      run: npm install
-
-    - name: Build project
-      run: npm run build
-
-    - name: Install sshpass
-      run: choco install sshpass
-
-    - name: Deploy to server
-      env:
-        SERVER_USER: ${{ secrets.MY_SERVER_USER }}
-        SERVER_IP: ${{ secrets.MY_SERVER_IP }}
-        SERVER_DIR: ${{ secrets.MY_SERVER_DIR }}
-        SERVER_PASSWORD: ${{ secrets.MY_SERVER_PASSWORD }}
-      run: |
-        sshpass -p ${env:SERVER_PASSWORD} scp -r build/* ${env:SERVER_USER}@${env:SERVER_IP}:${env:SERVER_DIR}
-        sshpass -p ${env:SERVER_PASSWORD} ssh ${env:SERVER_USER}@${env:SERVER_IP} "pm2 stop all && pm2 serve ${env:SERVER_DIR} 3080 --spa"
+        host: 192.168.20.10
+        username: rifat
+        password: Apex@123
+        port: 22
+        script: |
+          cd C:\Users\Rifat\Desktop\Apex tesing server\andron
+          git pull origin main
+          npm install
+          npm run build
+          pm2 restart Andron
