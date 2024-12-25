@@ -14,12 +14,15 @@ jobs:
 
       - name: Install Dependencies
         run: |
+          cd path/to/your/project
           npm install
-
+          
       - name: Build Project
         run: |
+          cd C:\Users\Rifat\Desktop\Apex tesing server\test-cicd
           npm run build
-
+          
       - name: Deploy Application
         run: |
+          cd C:\Users\Rifat\Desktop\Apex tesing server\test-cicd
           pm2 restart test_cicd
