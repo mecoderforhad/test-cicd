@@ -12,17 +12,22 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
+      - name: Pull Latest Code
+        run: |
+          cd "C:\Users\Rifat\Desktop\Apex tesing server\test-cicd"
+          git pull origin main
+
       - name: Install Dependencies
         run: |
-          cd path/to/your/project
+          cd "C:\Users\Rifat\Desktop\Apex tesing server\test-cicd"
           npm install
-          
+
       - name: Build Project
         run: |
-          cd C:\Users\Rifat\Desktop\Apex tesing server\test-cicd
+          cd "C:\Users\Rifat\Desktop\Apex tesing server\test-cicd"
           npm run build
-          
+
       - name: Deploy Application
         run: |
-          cd C:\Users\Rifat\Desktop\Apex tesing server\test-cicd
+          cd "C:\Users\Rifat\Desktop\Apex tesing server\test-cicd"
           pm2 restart test_cicd
